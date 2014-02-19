@@ -18,7 +18,7 @@ class Polynomial :
         
     # Return the coefficient for the term of the given degree
     def __gititem__( self, degree ):
-        assert self.degree() >= 0,
+        assert self.degree() >= 0,\
         "Operation not premitted on an empty polynomial."
         curNode = self._polyHead
         while curNode is not None and curNode.degree >= degree:
@@ -31,7 +31,7 @@ class Polynomial :
 
     # Evaluate the polynomial at the given scalar value
     def evaluate( self, scalar ):
-        assert self.degree() >= 0,
+        assert self.degree() >= 0,\
         "Only non-empty polynomial can be evaluated."
         result = 0.0
         curNode = self._polyHead
@@ -42,8 +42,56 @@ class Polynomial :
 
     # Polynomial addition: newPoly = self + rhsPoly.
     def __add__( self, rhsPoly ):
-        pass
+        assert self.degree() >=0 and rhsPoly.degree() >= 0,\
+        "Addition only allowed on non-empty polynomials"
     
+        #newPoly = Polynomial()
+        nodeA = self._polyHead
+        nodeB = rhsPoly._polyHead
+        
+        # Add corresponding terms until one list is empty
+        while nodeA is not None and nodeB is not None:
+            if nodeA.degree > nodeB.degree :
+                degree = nodeA.degree
+                value = nodeA.cofficient
+                nodeA = nodeA.next
+            elif nodeA.degree < listB.degree:
+                degree = nodeB.degree
+                value = nodeB.cofficient
+                nodeB = nodeB.next
+            else:
+                degree = nodeA.degree
+                value = nodeA.coefficient + nodeB.coefficient
+                nodeA = nodeA.next
+                nodeB = nodeB.next
+            self._appendTerm( degree, value )
+        
+        # If self list contains more terms append them
+        while nodeA is not None:
+            self._appendTerm( nodeA.degree, nodeA.coefficient )
+            nodeA = nodeA.next
+            
+        # or if rhs contains more terms append them
+        while nodeB is not None:
+            self._appendTerm( nodeB.degree, nodeB.coefficient )
+            nodeB = nodeB.next
+            
+        return self
+        
+    def simple_add( self, rhsPoly ):
+        newPoly = Polynomial()
+        if self.degree() > rhsPoly.degree():
+            maxDegree = self.degree()
+        else:
+            maxDegree = rhsPoly.degree()
+            
+        i = maxDegree
+        while i >= 0 :
+            value = self[i] + rhsPoly[i]
+            self._appendTerm( i, value)
+            i += 1
+        return newPoly
+
     # Polynomial substraction: newPoly = self - rhsPoly.
     def __sub__( self, rhsPoly ):
         pass
@@ -51,7 +99,7 @@ class Polynomial :
     # Polynomial multiplication: newPoly = self * rhsPoly
     def __mul__( self, rhsPoly ):
         pass
-    
+
     # Helper method for appending terms to the polynomial
     def _appendTerm( self, degree, coefficient ):
         if coefficient != 0.0:
