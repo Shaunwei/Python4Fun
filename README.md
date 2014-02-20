@@ -1,5 +1,8 @@
 Play with python for fun
 =============================================================
+Please contact shaunweix@gmail.com for more information.
+
+
 I really enjoy programming in python
 Here is all the fun staff, I played with python
 
