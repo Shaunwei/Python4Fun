@@ -1,3 +1,5 @@
+#!/usr/bin/python
+import sys
 import csv
 
 TENOR_LIST = ['006M', '012M', '024M', '036M', '048M', '060M', '072M', '084M', '120M', '240M', '360M']    
@@ -54,4 +56,10 @@ def clean_csv(file_name, new_file_name):
         
 
 if __name__=='__main__':
-    clean_csv('exp.csv', 'tmp.csv')
+    length = len(sys.argv)
+    if length == 1:
+        clean_csv('exp.csv', 'tmp.csv')
+    elif length == 2:
+        clean_csv('exp.csv', sys.argv[1])
+    elif length == 3:
+        clean_csv(sys.argv[1], sys.argv[2])
