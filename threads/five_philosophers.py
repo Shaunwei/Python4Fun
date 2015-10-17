@@ -1,0 +1,1 @@
+# https://github.com/caoool/pythonerror/blob/master/test2.py
